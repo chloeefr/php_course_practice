@@ -15,10 +15,10 @@ include_once 'config/database.php';
 
 $database = new Database();
 $db = $database->getConnection();
-	
+
 // if the form was submitted
 if($_POST){
-	
+
 	// instantiate product object
 	include_once 'objects/product.php';
 	$product = new Product($db);
@@ -28,7 +28,7 @@ if($_POST){
 	$product->price = $_POST['price'];
 	$product->description = $_POST['description'];
 	$product->category_id = $_POST['category_id'];
-	
+
 	// create the product
 	if($product->create()){
 		echo "<div class=\"alert alert-success alert-dismissable\">";
@@ -36,7 +36,7 @@ if($_POST){
 			echo "Product was created.";
 		echo "</div>";
 	}
-	
+
 	// if unable to create the product, tell the user
 	else{
 		echo "<div class=\"alert alert-danger alert-dismissable\">";
@@ -46,27 +46,27 @@ if($_POST){
 	}
 }
 ?>
-	 
+
 <!-- HTML form for creating a product -->
 <form action='create_product.php' method='post'>
- 
+
 	<table class='table table-hover table-responsive table-bordered'>
-	 
+
 		<tr>
 			<td>Name</td>
 			<td><input type='text' name='name' class='form-control' required></td>
 		</tr>
-		 
+
 		<tr>
 			<td>Price</td>
 			<td><input type='number' name='price' class='form-control' required></td>
 		</tr>
-		 
+
 		<tr>
 			<td>Description</td>
 			<td><textarea name='description' class='form-control'></textarea></td>
 		</tr>
-		 
+
 		<tr>
 			<td>Category</td>
 			<td>
@@ -76,21 +76,21 @@ if($_POST){
 
 			$category = new Category($db);
 			$stmt = $category->read();
-			
+
 			// put them in a select drop-down
 			echo "<select class='form-control' name='category_id'>";
 				echo "<option>Select category...</option>";
-				
+
 				while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)){
 					extract($row_category);
 					echo "<option value='{$id}'>{$name}</option>";
 				}
-				
+
 			echo "</select>";
 			?>
 			</td>
 		</tr>
-		 
+
 		<tr>
 			<td></td>
 			<td>
@@ -99,10 +99,10 @@ if($_POST){
 				</button>
 			</td>
 		</tr>
-		 
+
 	</table>
 </form>
-             
+
 <?php
 include_once "footer.php";
 ?>

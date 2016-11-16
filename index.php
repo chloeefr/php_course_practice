@@ -8,6 +8,8 @@ $from_record_num = ($records_per_page * $page) - $records_per_page; // calculate
 include_once 'config/database.php';
 include_once 'objects/product.php';
 include_once 'objects/category.php';
+include_once 'objects/users.php';
+
 
 // instantiate database and product object
 $database = new Database();
@@ -15,9 +17,17 @@ $db = $database->getConnection();
 
 $product = new Product($db);
 $category = new Category($db);
+$users = new Users($db);
 
 $page_title = "Read Products";
 include_once "header.php";
+
+// Create User
+echo "<div class='right-button-margin'>";
+	echo "<a href='create_user.php' class='btn btn-primary pull-right'>";
+		echo "<span class='glyphicon glyphicon-plus'></span> Create User";
+	echo "</a>";
+echo "</div>";
 
 // create product button
 echo "<div class='right-button-margin'>";
@@ -41,11 +51,11 @@ if($num>0){
 			echo "<th>Category</th>";
 			echo "<th>Actions</th>";
 		echo "</tr>";
-		
+
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-		
+
 			extract($row);
-			
+
 			echo "<tr>";
 				echo "<td>{$name}</td>";
 				echo "<td>{$price}</td>";
@@ -55,27 +65,27 @@ if($num>0){
 					$category->readName();
 					echo $category->name;
 				echo "</td>";
-				
+
 				echo "<td>";
-					
+
 					// edit product button
 					echo "<a href='update_product.php?id={$id}' class='btn btn-info left-margin'>";
 						echo "<span class='glyphicon glyphicon-edit'></span> Edit";
 					echo "</a>";
-					
+
 					// delete product button
 					echo "<a delete-id='{$id}' class='btn btn-danger delete-object'>";
 						echo "<span class='glyphicon glyphicon-remove'></span> Delete";
 					echo "</a>";
-					
+
 				echo "</td>";
-				
+
 			echo "</tr>";
-			
+
 		}
-		
+
 	echo "</table>";
-	
+
 	// paging buttons
 	include_once 'paging.php';
 }
@@ -89,10 +99,10 @@ else{
 <script>
 // JavaScript for deleting product
 $(document).on('click', '.delete-object', function(){
-		
+
 	var id = $(this).attr('delete-id');
 	var q = confirm("Are you sure?");
-	
+
 	if (q == true){
 
 		$.post('delete_product.php', {
@@ -104,7 +114,7 @@ $(document).on('click', '.delete-object', function(){
 		});
 
 	}
-		
+
 	return false;
 });
 </script>
