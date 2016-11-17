@@ -1,4 +1,5 @@
 <?php
+include_once "abstractModel.php";
 class Category extends abstractModel {
 
 	// object properties
@@ -12,4 +13,5 @@ class Category extends abstractModel {
 		$this->$name = $name;
 	}
 
-?>
+	
+}

@@ -47,7 +47,7 @@
       }
 
       // Validate User
-      public ValidateUser($id){}
+      // public ValidateUser($id){}
 
   }
 

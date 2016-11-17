@@ -12,25 +12,16 @@ echo "</div>";
 
 // get database connection
 include_once 'config/database.php';
-
-$database = new Database();
-$db = $database->getConnection();
+include_once 'objects/productController.php';
 
 // if the form was submitted
 if($_POST){
 
 	// instantiate product object
-	include_once 'objects/product.php';
-	$product = new Product($db);
-
-	// set product property values
-	$product->name = $_POST['name'];
-	$product->price = $_POST['price'];
-	$product->description = $_POST['description'];
-	$product->category_id = $_POST['category_id'];
+	$product = modelMapper::mapProductModel($_POST);
 
 	// create the product
-	if($product->create()){
+	if(productController::addProduct($product)){
 		echo "<div class=\"alert alert-success alert-dismissable\">";
 			echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>";
 			echo "Product was created.";

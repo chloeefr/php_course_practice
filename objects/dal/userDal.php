@@ -1,6 +1,6 @@
 <?php
-
-  userDAL implements ICRUD {
+  include_once 'objects/dal/icrud.php';
+  class userDAL implements ICRUD {
     // create product
   	function create(){
 

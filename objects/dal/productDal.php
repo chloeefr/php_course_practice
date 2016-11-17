@@ -1,7 +1,16 @@
 <?php
+include_once 'objects/dal/icrud.php';
 
-  productDAL implements ICRUD {
+  class productDAL implements ICRUD {
     // create product
+
+    private $conn;
+    private $table_name = "products";
+
+    public function setConnection($dbConnection){
+      $this->conn = $dbConnection;
+    }
+
   	function create(){
 
   		//write query

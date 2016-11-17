@@ -6,9 +6,10 @@ $from_record_num = ($records_per_page * $page) - $records_per_page; // calculate
 
 // include database and object files
 include_once 'config/database.php';
-include_once 'objects/product.php';
-include_once 'objects/category.php';
-include_once 'objects/users.php';
+include_once 'objects/model/product.php';
+include_once 'objects/model/category.php';
+include_once 'objects/model/users.php';
+include_once 'objects/controller/productController.php';
 
 
 // instantiate database and product object
@@ -37,7 +38,7 @@ echo "<div class='right-button-margin'>";
 echo "</div>";
 
 // query products
-$stmt = $product->readAll($from_record_num, $records_per_page);
+$stmt = productController::getAllProducts($from_record_num, $records_per_page);
 $num = $stmt->rowCount();
 
 // display the products if there are any
@@ -61,9 +62,13 @@ if($num>0){
 				echo "<td>{$price}</td>";
 				echo "<td>{$description}</td>";
 				echo "<td>";
-					$category->id = $category_id;
-					$category->readName();
-					echo $category->name;
+					echo productController::getCategoryName($row['category_id']);
+				echo "</td>";
+
+
+
+
+
 				echo "</td>";
 
 				echo "<td>";

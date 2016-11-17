@@ -1,4 +1,5 @@
 <?php
+include_once "abstractModel.php";
 class Product extends abstractModel {
 
 	// object properties

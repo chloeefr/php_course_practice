@@ -1,4 +1,5 @@
 <?php
+include_once "abstractModel.php";
 class Users extends abstractModel {
 
 	// object properties
@@ -46,5 +47,3 @@ class Users extends abstractModel {
 
 
 }
-
-?>
